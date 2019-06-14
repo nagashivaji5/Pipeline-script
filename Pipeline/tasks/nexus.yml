@@ -1,0 +1,30 @@
+---
+ - name: checking nexus is present or not
+   stat: /opt/nexu-{{ n_v }}
+   register: nexus_stat
+ - name: download nexus
+   get_url:
+       url: 'http://download.sonatype.com/nexus/3/nexus-{{ n_v }}-unix.tar.gz'
+       dest: /opt
+   when: nexus_stat.
+ - name: unarchive the nexus tar file
+   unarchive:
+       src: /opt/nexus-3.16.1-02-unix.tar.gz
+       dest: /opt
+       remote_src: yes
+ - name: changing the port number
+   lineinfile:
+        path: /opt/sonatype-work/nexus3/etc/nexus.properties
+        line: 'application-port=9090'
+ - name: Setting run_as_user="nexus"
+   lineinfile:
+         path: /opt/nexus-3.16.1-02/bin/nexus.rc
+         regexp: '^run'
+         line: 'run_as_user="root"'
+ - name: start nexus
+   shell: cd /opt/nexus-3.16.1-02/bin && ./nexus start
+
+ - name: Install nexus and extract to /opt
+ - name: creating a repo sample-testing using nexus rest call
+ - name: Pulling source code from github
+

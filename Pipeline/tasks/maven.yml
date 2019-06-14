@@ -1,0 +1,17 @@
+---
+ - name: checking whether maven is installed or not
+   command: "mvn -version"
+   register: prereq_maven
+   changed_when: false
+ - name: Installation of Java only when it is not installed
+   apt:
+     name: maven
+     state: present
+     when: not prereq_java.changed == false
+ - name: configure MAVEN_HOME in .bashrc 
+   copy: src=.bashrc dest=/root
+   notify: source bashrc
+
+   
+ 
+ - name: Build the code using maven

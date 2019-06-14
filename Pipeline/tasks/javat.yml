@@ -1,0 +1,15 @@
+---
+ - name: "Ensure JAVA is installed"
+   command: "java -version"
+   register: prereq_java
+
+ - name: Installation of Java only when it is not installed
+   apt:
+     name: openjdk-8-jdk
+     state: present
+     when: prereq_java.changed == false
+
+ - name: Configuring Java Home replacing file in .bashrc
+   copy:
+     src=.bashrc dest=/root notify= source bashrc
+

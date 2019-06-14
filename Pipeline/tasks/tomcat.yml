@@ -1,0 +1,27 @@
+---
+ - name: download tomcat by passing the version
+ - name: extraction to opt
+ - name: upload server.xml by passing http_port and ajp port
+ - name: upload tomcat-user.xml by passing a admin
+ - name: Checking tomcat is present or not
+   stat: /opt/apachetomcat
+   register: tomcat_available
+ - name: Downloading tomcat8 from internet
+   get_url:
+       url: http://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.41/bin/apache-tomcat-8.5.41.tar.gz
+       dest: /opt
+   when: tomcat_available.stat.exists == false
+ - name: extracting tar file
+   unarchive: src=/opt/apache-tomcat-8.5.41.tar.gz dest=/opt
+   when: tomcat_available.stat.exists == false
+ - name: renaming the extracted file
+   command: mv /opt/apache-tomcat-8.5.41 /opt/apachetomcat
+   when: tomcat_available.stat.exists == false
+ - name: edit the server.xml files to make as templates
+   template:
+     src: "{{ item }}"
+     dest: /opt/apachetomcat/conf/server.xml
+   with_items:
+      - server.xml
+      - tomcat-users.xml
+

@@ -1,0 +1,8 @@
+---
+# handlers file for Pipeline
+- name: source bashrc
+  command: source ~/.bashrc /root
+- name: restart tomcat
+  service: name=tomcat state=present
+- name: restart someting
+  service: name=iptables state=present

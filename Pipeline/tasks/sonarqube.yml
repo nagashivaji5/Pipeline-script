@@ -1,0 +1,6 @@
+---
+ - name: Downloading sonarqube and sonar scanner to opt
+ - name: pull source code from github
+ - name: configure maven application pom.xml with sonarqube scan configuration
+
+

@@ -1,0 +1,12 @@
+---
+# tasks file for Pipeline
+ - include:
+     - pretasks.yml
+     - javat.yml
+     - maven.yml
+     - sonarqube.yml
+     - nexus.yml
+     - tomcat.yml
+     - deploy.yml
+    
+

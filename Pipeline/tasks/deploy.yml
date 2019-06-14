@@ -1,0 +1,3 @@
+---
+ - name: deploying war file to tomcat webapps
+ - name: start the tomcat server
